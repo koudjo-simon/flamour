@@ -1,0 +1,30 @@
+.nav_home{
+    display: flex;
+    justify-content: space-between;
+    height: 13%;
+  }
+  
+  .nav_home button{
+    font-size: 20px;
+    margin-top: 20px;
+    margin-right: 30px;
+    background-color: #F10479;
+    padding: 7px;
+    border-radius: 30px;
+    color:white;
+    padding-left:30px ;
+    padding-right: 30px;
+    margin-bottom: 120px;
+  }
+  
+  .nav_home button a{
+    text-decoration: none;
+    color: white;
+  }
+  
+  button:hover {
+    animation: a 0.5s 1 linear;
+    border-color:white;
+    background-color: black;
+    color: violet;
+  }
