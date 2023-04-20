@@ -1,4 +1,3 @@
-import { json } from 'react-router-dom';
 import classe from './formulaire1.module.css'
 
 const Formulaire1 = ({nom, prenom, pseudo, email, mdp, confMdp, setNom, setPrenom, setPseudo, setEmail, setMdp, setConfMdp}) => {
