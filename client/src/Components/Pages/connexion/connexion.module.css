@@ -1,0 +1,112 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* body{
+    background-image: url(./WhatsApp\ Image\ 2023-04-18\ à\ 21.55.24.jpg); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    height: 100vh;
+    width: 100vw;
+} */
+
+.background{
+    /* background-color: rgba(0, 0, 0, 0.712); */
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: url(../../../images/bg-image.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.noitr{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.747);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    width: 40vw;
+    height: 60vh;
+}
+
+#email{
+    height: 6vh;
+    width: 25vw;
+    border-radius: 40px;
+    border-style: solid;
+    border-color: white;
+    border-width: 3px;
+    background-color: rgba(255, 255, 255, 0.74);
+    backdrop-filter: blur(16px);
+}
+
+#email:hover{
+    border-color: rgb(233, 21, 57);
+    background-color: rgba(255, 255, 255, 0.178);
+}
+
+#password{
+    height: 6vh;
+    width: 25vw;
+    border-radius: 40px;
+    border-style: solid;
+    border-color: white;
+    border-width: 3px;
+    background-color: rgba(255, 255, 255, 0.74);
+    backdrop-filter: blur(16px);
+}
+
+#password:hover{
+    border-color: rgb(233, 21, 57);
+    background-color: rgba(255, 255, 255, 0.178);
+}
+
+.carre{ 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bouton{
+    padding: 1vw 4vh;
+    background-color:pink;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+}
+
+.bouton:hover{
+    background-color: rgb(255, 92, 119);
+    color: white;
+}
+
+.p{
+    font-weight: bold;
+    font-size: large;
+    text-transform: none;
+}
+.r{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.class{
+    float: left;
+    height: 12px;
+    width: 12px;
+}
