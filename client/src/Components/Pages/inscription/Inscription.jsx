@@ -1,24 +1,26 @@
 import { useState } from "react";
+import axios from "axios";
+
 import Formulaire1 from "./Formulaire1";
 import Formulaire2 from "./Formulaire2";
 import Formulaire3 from "./Formulaire3";
 
 const Inscription = () => {
 
-    const [nom, setNom] = useState("");
-    const [prenom, setPrenom] = useState("");
-    const [pseudo, setPseudo] = useState("");
-    const [email, setEmail] = useState("");
-    const [mdp, setMdp] = useState("");
-    const [confMdp, setConfMdp] = useState("");
+    const [nom, setNom] = useState("Gérald");
+    const [prenom, setPrenom] = useState("AMENOUGLO");
+    const [pseudo, setPseudo] = useState("kgero");
+    const [email, setEmail] = useState("geral@gerald.com");
+    const [mdp, setMdp] = useState("12345");
+    const [confMdp, setConfMdp] = useState("12345");
 
-    const [profession , setProfession] = useState("");
-    const [pays, setPays] = useState("");
-    const [ville, setVille] = useState("");
+    const [profession , setProfession] = useState("Dealeur");
+    const [pays, setPays] = useState("USA");
+    const [ville, setVille] = useState("CHICAGO");
     const [date, setDate] = useState("");
 
-    const [sexe, setSexe] = useState("");
-    const [photoProfil, setPhotoProfil] = useState("");
+    const [sexe, setSexe] = useState("M");
+    const [photoProfil, setPhotoProfil] = useState("chemin_a_completer");
 
     const [showForm1, setShowForm1] = useState(true);
     const [showForm2, setShowForm2] = useState(false);
@@ -41,6 +43,14 @@ const Inscription = () => {
             photoProfil,
         }
         console.log(JSON.stringify(inscriptionFormData));
+        axios.post("http://localhost:5000/user/signup", inscriptionFormData)
+            .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    console.error("erreur");
+                });
     }
 
     return (

@@ -12,7 +12,7 @@ const Connexion = () => {
         e.preventDefault();
         const data = {pseudo, mdp}
         console.log(JSON.stringify(data));
-        axios.post("http://localhost:5000/chat", data)
+        axios.post("http://localhost:5000/user/login", data)
             .then((response) => {
                     console.log(response);
                 })
