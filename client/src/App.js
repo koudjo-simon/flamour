@@ -6,6 +6,7 @@ import Connexion from "./Components/Pages/connexion/Connexion";
 import Inscription from "./Components/Pages/inscription/Inscription"
 import Chat from "./Components/Pages/chat/Chat";
 import Protection from './Components/protection/Protection';
+import Socket from './Components/Socket';
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/chat" element={<Protection/>} >
             <Route index element={<Chat/>} />
           </Route>          
+          <Route path='/socket' element={<Socket/>} />
         </Routes>
       </BrowserRouter>
     </div>
