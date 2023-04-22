@@ -1,5 +1,6 @@
 const dataBase = require("../config/mysql");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken")
 
 exports.signup = (req, res) => {
     let insertNewUserRequest = "INSERT INTO utilisateur(nom, prenom, email, pseudo, password, age, sexe, profession, pays, ville, photo_profil) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -28,7 +29,32 @@ exports.signup = (req, res) => {
 }
 
 exports.login = (req, res) => {
-    res.json({...req.body});
+    let selectUserRequest = "SELECT * from utilisateur WHERE pseudo = ?";
+    dataBase.query(selectUserRequest, [req.body.pseudo], (error, result) => {
+        if (error) throw error;
+        if (result.length < 1){
+            return res.status(401).json({
+                message:"User not found"
+            })
+        }
+        bcrypt.compare(req.body.mdp, result[0].password)
+            .then((valid)=>{
+                if (!valid) {
+                    return res.status(401).json(
+                        {message:"Bad credentials"}
+                    ).end();
+                }
+                let accessToken = jwt.sign(
+                    {user_id: result[0].user_id},
+                    "MY_TOKEN_SECRET",
+                    {expiresIn:"10s"}
+                );
+                console.log(accessToken);
+                res.status(201).json({accessToken})
+            }).catch((error)=>{
+                console.log(error);
+            });
+    });
 }
 
 /* exports.chat = (req, res) => {

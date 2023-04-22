@@ -2,19 +2,26 @@ import { useState } from 'react';
 import axios from "axios"
 
 import styles from './connexion.module.css'
+import { useNavigate } from 'react-router-dom';
 
 const Connexion = () => {
 
     const [pseudo, setPseudo] = useState("");
     const [mdp, setMdp] = useState("");
 
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = {pseudo, mdp}
         console.log(JSON.stringify(data));
-        axios.post("http://localhost:5000/user/login", data)
+        axios.post("http://localhost:5000/user/login", data, {
+            headers:{"Content-Type":"application/json"}
+        })
             .then((response) => {
-                    console.log(response);
+                    console.log(response.data);
+                    navigate("/chat");
+                    localStorage.setItem("token", response.data.accessToken);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -39,7 +46,7 @@ const Connexion = () => {
                     <br /><br /><br />
                     <div className={styles.r}>
                         <label htmlFor="password">Mot de passe :</label>
-                        <input type="password" name="mot de pass" id="password" 
+                        <input type="password" name="motdepass" id="password" 
                             value={mdp}
                             onInput={(e)=>{setMdp(e.target.value)}}
                         />
