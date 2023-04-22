@@ -6,9 +6,25 @@ exports.signup = (req, res) => {
     bcrypt.hash(req.body.mdp, 10, (error, hash) => {
         if (error) throw Error(error)
         console.log(hash);
-        dataBase.query(insertNewUserRequest);
-    })
-    res.json({...req.body});
+        dataBase.query(insertNewUserRequest, [
+            req.body.nom,
+            req.body.prenom,
+            req.body.email,
+            req.body.pseudo,
+            hash,
+            req.body.date,
+            req.body.sexe,
+            req.body.profession,
+            req.body.pays,
+            req.body.ville,
+            req.body.photo_profil,
+        ], (error, result) =>{
+            if (error) throw error;
+            res.status(201).json({
+                message: "success"
+            })
+        });
+    });
 }
 
 exports.login = (req, res) => {
