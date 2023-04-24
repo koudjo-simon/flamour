@@ -2,10 +2,11 @@
 import React, { useEffect } from 'react'
 import axiosPrivate from '../../../api/axiosPrivate';
 import { useNavigate } from 'react-router-dom';
+import styles from './chat.module.css'
 
 function Chat() {
   const navigate = useNavigate();
-  useEffect(()=>{
+  /* useEffect(()=>{
     axiosPrivate.post("/chat/getall", {userId:1})
       .then((response) => {console.log(response.data.conversation);})
       .catch((error)=>{
@@ -14,12 +15,23 @@ function Chat() {
           navigate("/login");
         }
       })
-  }, []);
+  }, []); */
 
   return (
-    <div>
-        <h1>Chat Page</h1>
-    </div>
+    <>
+        <h1>Chat</h1>
+        <div className={styles.container_2} onClick={()=>{
+          navigate("/chat/main/private")
+        }}>
+            <div className={styles.centered_element}>
+                <div className=""></div>
+                <div className=""></div>
+            </div>
+            
+            <div className=""></div>
+            
+        </div>
+    </>
   )
 }
 

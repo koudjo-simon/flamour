@@ -47,10 +47,10 @@ exports.login = (req, res) => {
                 let accessToken = jwt.sign(
                     {user_id: result[0].user_id},
                     "MY_TOKEN_SECRET",
-                    {expiresIn:"10s"}
+                    {expiresIn:"10m"}
                 );
                 console.log(accessToken);
-                res.status(201).json({accessToken})
+                res.status(201).json({accessToken, user_id:result[0].user_id})
             }).catch((error)=>{
                 console.log(error);
             });

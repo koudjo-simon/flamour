@@ -38,6 +38,22 @@ main .profile img{
     padding: 1vh;    
     
 }
+
+.message_view{
+    text-align: center;
+    color: violet;
+    height: 100%;
+    width: 50%;
+    cursor: pointer;
+}
+.info_view{
+    text-align: center;
+    color: blue;
+    height: 100%;
+    width: 50%;
+    cursor: pointer;
+}
+
 .link{
     text-decoration:  none;
     color: rgba(238, 255, 0, 0.918);
@@ -91,4 +107,9 @@ body{
     margin-top: 4vh;
     background-color: red;
     cursor: pointer;
+}
+
+.userConversation{
+    cursor: pointer;
+    padding: 2vh 0;
 }

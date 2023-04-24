@@ -3,8 +3,9 @@ import axios from "axios"
 
 import styles from './connexion.module.css'
 import { useNavigate } from 'react-router-dom';
+import Header2 from '../../Layouts/header/Header2';
 
-const Connexion = () => {
+const Connexion = ({setUserId}) => {
 
     const [pseudo, setPseudo] = useState("");
     const [mdp, setMdp] = useState("");
@@ -20,8 +21,9 @@ const Connexion = () => {
         })
             .then((response) => {
                     console.log(response.data);
-                    navigate("/chat");
                     localStorage.setItem("token", response.data.accessToken);
+                    setUserId(response.data.user_id)
+                    navigate("/chat/main");
                 })
                 .catch((error) => {
                     console.log(error);
@@ -31,7 +33,7 @@ const Connexion = () => {
 
     return (
         <>
-            {/* <Header/> */}
+            <Header2 />
             <div className={styles.background}>
         <div className={styles.noitr}>
             <div className={styles.carre}>
