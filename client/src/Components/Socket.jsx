@@ -5,8 +5,6 @@ const socket = io.connect("http://localhost:4000");
 
 const Socket = () => {
 
-    
-
   return (
     <div>
         <h1>Socket page</h1>

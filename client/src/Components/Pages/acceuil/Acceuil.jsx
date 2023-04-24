@@ -1,6 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import classe from "./acceuil.module.css"
 
 function Acceuil(){
+
+    const navigate = useNavigate();
+
     return (
         <>
             <div className={classe.description}> 
@@ -15,7 +19,9 @@ function Acceuil(){
                     </p>
                 </div>
                 <div>
-                    <button className={classe.btn_inscription}>S'inscrire</button>
+                    <button className={classe.btn_inscription} onClick={()=>{
+                        navigate("/inscription")
+                    }}>S'inscrire</button>
                 </div>  
             </div>   
 
