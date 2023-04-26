@@ -3,9 +3,12 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken")
 
 exports.signup = (req, res) => {
-    let insertNewUserRequest = "INSERT INTO utilisateur(nom, prenom, email, pseudo, password, age, sexe, profession, pays, ville, photo_profil) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const file = req.file;
+    console.log("File ", file)
+    let insertNewUserRequest = "INSERT INTO utilisateur(nom, prenom, email, pseudo, password, age, sexe, profession, pays, ville, photo_profil) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const imageUrl = `${req.protocol}://${req.get('host')}/files/${req.file.filename}`;
     bcrypt.hash(req.body.mdp, 10, (error, hash) => {
-        if (error) throw Error(error)
+        if (error) throw error
         console.log(hash);
         dataBase.query(insertNewUserRequest, [
             req.body.nom,
@@ -18,8 +21,9 @@ exports.signup = (req, res) => {
             req.body.profession,
             req.body.pays,
             req.body.ville,
-            req.body.photo_profil,
+            imageUrl
         ], (error, result) =>{
+            console.log("Exécution du serveur")
             if (error) throw error;
             res.status(201).json({
                 message: "success"
@@ -55,6 +59,14 @@ exports.login = (req, res) => {
                 console.log(error);
             });
     });
+}
+
+exports.getAllUsers = (req, res) => {
+    let selectAllUsersRequest = "SELECT * FROM utilisateur u WHERE NOT EXISTS (SELECT * FROM conversation c WHERE (c.user_id_1 = u.user_id AND c.user_id_2 = ?) OR (c.user_id_1 = ? AND c.user_id_2 = u.user_id)) AND u.user_id != ?;";
+    dataBase.query(selectAllUsersRequest, [req.body.userId, req.body.userId, req.body.userId], (error, result) => {
+        if (error) throw error;
+        res.status(201).json({users:result}).end();
+    })
 }
 
 /* exports.chat = (req, res) => {

@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styles from './chatLayout.module.css'
 import profileImg from '../../images/profile-img.jpg'
 import { Outlet, useNavigate } from 'react-router-dom';
 import axiosPrivate from '../../api/axiosPrivate';
 
-
-const ChatLayout = ({conversation, showDiscussions, showUserInfo, setConversation, setShowDiscussion, setShowUserInfo}) => {
-
-    const navigate = useNavigate()
+const ChatLayout = ({socket, conversation, showDiscussions, showUserInfo, setConversation, setShowDiscussion, setShowUserInfo}) => {
+    
+    const navigate = useNavigate();
 
     useEffect(()=>{
         axiosPrivate.get("http://localhost:5000/chat/getall")
             .then((response) => {
                 setConversation(response.data.conversation);
-                console.log(response.data.conversation);
-                /* localStorage.setItem("conv", conversation.conv_id); */
+                console.log("Responses conv list", response);
+                console.log("Conversations list", response.data.conversation);
+                // localStorage.setItem("conv", conversation.conv_id);
             }).catch((error) => {
                 console.log(error)
                 navigate("/login")
@@ -75,7 +75,8 @@ const ChatLayout = ({conversation, showDiscussions, showUserInfo, setConversatio
                 <label htmlFor="">Préference:</label>
             </div>
             <div className={styles.edit}>
-                 <a href="" className={styles.link_edit}>Modifier Information</a>
+                 {/* <a href="" className={styles.link_edit}>Modifier Information</a> */}
+                 Modifier Information
             </div>
             </div>
              }
@@ -87,11 +88,11 @@ const ChatLayout = ({conversation, showDiscussions, showUserInfo, setConversatio
                 {convDiv}
             </div>}
             <div className={styles.deconnecte}>
-                <a href="" className={styles.link_deconnecte}>Déconnexion</a>
+                {/* <a href="" className={styles.link_deconnecte}>Déconnexion</a> */}
+                Déconnexion
             </div>
         </div>
-
-        <div>
+        <div className={styles.container}>
             <Outlet/>
         </div>
     </main>

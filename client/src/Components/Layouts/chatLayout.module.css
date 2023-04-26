@@ -66,7 +66,7 @@ body{
 .container_1{  
     border-right: 1px solid rgb(116, 116, 116);
     background-color: rgb(172, 168, 169);
-    width: 45vh;
+    width: 20%;
 }
 .profile{
     border-bottom: 1px solid rgb(116, 116, 116);
@@ -112,4 +112,8 @@ body{
 .userConversation{
     cursor: pointer;
     padding: 2vh 0;
+}
+
+.container{
+    width: 100%;
 }

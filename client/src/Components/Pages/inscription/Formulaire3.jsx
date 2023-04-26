@@ -1,6 +1,6 @@
 import classe from './formulaire3.module.css'
 
-const Formulaire3 = ({setShowForm2, setShowForm3, sexe, setSexe, handleInscription}) => {
+const Formulaire3 = ({handleFileChange, setShowForm2, setShowForm3, sexe, setSexe, handleInscription, handleSubmit}) => {
 
     /* let handleSubmit = (e) => {
         e.preventDefault();
@@ -26,10 +26,12 @@ const Formulaire3 = ({setShowForm2, setShowForm3, sexe, setSexe, handleInscripti
                             <select name="sexe" id="sexe" onChange={(e)=>{setSexe(e.target.value)}}>
                                 <option value="F">Feminin</option>
                                 <option value="M">Masculin</option>
-                            </select>
+                            </select><br />
+                            <label>Profil : </label>
+                            <input type="file" onClick={handleFileChange} />
                             <div className={classe.btn_div}>
                                 <button className={classe.btn_previous} onClick={()=>{handlePrevious()}}>Précedent</button>
-                                <button className={classe.btn_inscription} onClick={(e)=>{handleInscription(e)}}>Soumettre</button>
+                                <button className={classe.btn_inscription} onClick={(event)=> {handleSubmit(event)}}>Soumettre</button>
                             </div>
                         </form>
                     </div>

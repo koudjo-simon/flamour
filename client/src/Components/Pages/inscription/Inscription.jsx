@@ -20,12 +20,49 @@ const Inscription = () => {
     const [date, setDate] = useState("");
 
     const [sexe, setSexe] = useState("M");
-    const [photoProfil, setPhotoProfil] = useState("chemin_a_completer");
+    const [photoProfil, setPhotoProfil] = useState("");
 
     const [showForm1, setShowForm1] = useState(true);
     const [showForm2, setShowForm2] = useState(false);
     const [showForm3, setShowForm3] = useState(false);
 
+    const [file, setFile] = useState(null);
+
+    function handleFileChange(event) {
+        setFile(event.target.files[0]);
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+    
+        if (!file) {
+          return;
+        }
+    
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('nom', nom);
+        formData.append('prenom', prenom);
+        formData.append('pseudo', pseudo);
+        formData.append('email', email);
+        formData.append('mdp', mdp);
+        formData.append('profession', profession);
+        formData.append('pays', pays);
+        formData.append('ville', ville);
+        formData.append('date', date);
+        formData.append('sexe', sexe);
+
+        console.log("Handle submit en cour d'exécution");
+    
+        axios.post("http://localhost:5000/user/signup", formData)
+            .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    console.error("erreur");
+                });
+    }
     const handleInscription = (e) => {
         e.preventDefault();
         let inscriptionFormData = {
@@ -54,7 +91,7 @@ const Inscription = () => {
     }
 
     return (
-        <div>
+            <div>
             {
                 showForm1 ? <Formulaire1 
                                 setShowForm1={setShowForm1} 
@@ -98,10 +135,11 @@ const Inscription = () => {
                         setSexe={setSexe}
                         setPhotoProfil={setPhotoProfil}
                         handleInscription={handleInscription}
+                        handleFileChange={handleFileChange}
+                        handleSubmit={handleSubmit}
                     /> : null
             }
-        </div>
-    );
-}
+        </div>);
+    }
 
 export default Inscription;

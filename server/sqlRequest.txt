@@ -1,0 +1,19 @@
+SELECT * FROM conversation c 
+	JOIN utilisateur u ON (c.user_id_1 = u.user_id OR c.user_id_2 = u.user_id)
+    WHERE c.user_id_1 = 12 OR c.user_id_2 
+    GROUP BY(id_conv);
+
+************ Selection des personnes avec lequel un utilisateur à discuter *******************
+SELECT DISTINCT c.id_conv, u.nom , u.prenom FROM conversation c 
+	INNER JOIN message m ON m.id_conversation = c.id_conv
+    INNER JOIN utilisateur u on u.user_id = IF(c.user_id_1 = 12, c.user_id_2, c.user_id_1)
+WHERE c.user_id_1 = 12 OR c.user_id_2 = 12;
+
+************ Selection des personnes avec qui on a pas de conversation *****************************
+SELECT u.user_id, u.nom, u.prenom FROM utilisateur u
+	WHERE NOT EXISTS(
+    	SELECT * FROM conversation c 
+        WHERE (c.user_id_1 = u.user_id AND c.user_id_2 = 19) OR (c.user_id_1 = 19 AND c.user_id_2 = u.user_id)
+    )
+    AND u.user_id != 19;
+******************
