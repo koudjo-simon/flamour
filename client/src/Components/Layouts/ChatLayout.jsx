@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react'
 import styles from './chatLayout.module.css'
-import profileImg from '../../images/profile-img.jpg'
 import { Outlet, useNavigate } from 'react-router-dom';
 import axiosPrivate from '../../api/axiosPrivate';
 
-const ChatLayout = ({socket, conversation, showDiscussions, showUserInfo, setConversation, setShowDiscussion, setShowUserInfo}) => {
+const ChatLayout = ({userInfo, layoutConversation, showDiscussions, showUserInfo, setLayoutConversation, setShowDiscussion, setShowUserInfo, setChatConversation, setSelectedConversationUser}) => {
     
     const navigate = useNavigate();
 
     useEffect(()=>{
         axiosPrivate.get("http://localhost:5000/chat/getall")
             .then((response) => {
-                setConversation(response.data.conversation);
+                setLayoutConversation(response.data.conversation);
                 console.log("Responses conv list", response);
                 console.log("Conversations list", response.data.conversation);
                 // localStorage.setItem("conv", conversation.conv_id);
@@ -21,11 +20,12 @@ const ChatLayout = ({socket, conversation, showDiscussions, showUserInfo, setCon
             })
     }, []);
 
-    let convDiv = conversation.length > 0 && showDiscussions ? conversation.map((conversation) => {
+    let convDiv = layoutConversation.length > 0 && showDiscussions ? layoutConversation.map((conversation) => {
         return (
             <div onClick={() => {
                 localStorage.setItem("conv", conversation.id_conv);
-                setConversation(conversation);
+                setChatConversation(conversation);
+                setSelectedConversationUser()
                 navigate("/chat/main/private");
             }} key={conversation.id_conv} className={styles.userConversation}>
                 <span>
@@ -40,7 +40,10 @@ const ChatLayout = ({socket, conversation, showDiscussions, showUserInfo, setCon
         <main>
         <div className={styles.container_1}>
             <div className={styles.profile}>
-                <img src={profileImg} alt="" />
+                <img src={userInfo.photo} alt="" />
+            </div>
+            <div className={styles.userPseudo}>
+                { userInfo.pseudo }
             </div>
             <div className={styles.message}>
                 <div className={styles.message_view} onClick={
@@ -81,7 +84,7 @@ const ChatLayout = ({socket, conversation, showDiscussions, showUserInfo, setCon
             </div>
              }
             {showDiscussions &&  <div className={styles.conversations}>
-                <h3>Conversations</h3>
+                <h3 className={styles.conversation_heading}>Conversations</h3>
                 {/* <div>Alain</div>
                 <div>Kodjo</div>
                 <div>Kokou</div> */}

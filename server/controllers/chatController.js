@@ -1,16 +1,17 @@
 const dataBase = require("../config/mysql")
 
 exports.getUserChat = (req, res) => {
-    let selectUserChatRequest = "SELECT * FROM conversation c JOIN utilisateur u ON (c.user_id_1 = u.user_id OR c.user_id_2 = u.user_id) WHERE c.user_id_1 = 12 OR c.user_id_2 GROUP BY(id_conv);";
-    dataBase.query(selectUserChatRequest, [req.body.user_id, req.body.user_id], (error, result)=>{
+    let selectUserChatRequest = "SELECT DISTINCT c.id_conv, u.nom , u.prenom FROM conversation c INNER JOIN message m ON m.id_conversation = c.id_conv INNER JOIN utilisateur u on u.user_id = IF(c.user_id_1 = 12, c.user_id_2, c.user_id_1) WHERE c.user_id_1 = 12 OR c.user_id_2 = 12 GROUP BY(c.id_conv);";
+    dataBase.query(selectUserChatRequest, [req.body.user_id, req.body.user_id, req.body.user_id], (error, result)=>{
         if (error) throw error;
-        console.log(result);
+        // console.log("Get user chat : ", result);
         res.status(201).json({conversation:result}).end();
     });
 }
 
 exports.getChatMessage = (req, res) => {
-    let selectChatMessageRequest = "SELECT * FROM message WHERE message.id_conversation = ?;";
+    let selectChatMessageRequest = "SELECT * FROM message WHERE id_conversation = ?;";
+    
     dataBase.query(selectChatMessageRequest, [req.body.convId], (error, result)=>{
         if (error) throw error;
         // console.log(result);
@@ -23,10 +24,10 @@ exports.createConversation = (req, res) => {
     let insertConverstionRequest = "INSERT INTO `conversation`(`user_id_1`, `user_id_2`) VALUES (?, ?);";
     dataBase.query(insertConverstionRequest, [req.body.author, req.body.receiver], (error, result) => {
         if (error) throw error;
-        console.log("Create conversation result: ", result);
+        // console.log("Create conversation result: ", result);
         const convId = result.insertId;
         res.status(201).json({id_conv:convId});
-        console.log('ConvId inexistant', convId);
+        // console.log('ConvId inexistant', convId);
     })
     /* dataBase.query(verifyConversationRequest, [req.body.author, req.body.receiver, req.body.receiver, req.body.author], (error, result) => {
         if(error) throw error;

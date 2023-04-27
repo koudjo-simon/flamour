@@ -9,7 +9,7 @@ exports.signup = (req, res) => {
     const imageUrl = `${req.protocol}://${req.get('host')}/files/${req.file.filename}`;
     bcrypt.hash(req.body.mdp, 10, (error, hash) => {
         if (error) throw error
-        console.log(hash);
+        console.log(hash); 
         dataBase.query(insertNewUserRequest, [
             req.body.nom,
             req.body.prenom,
@@ -44,17 +44,25 @@ exports.login = (req, res) => {
         bcrypt.compare(req.body.mdp, result[0].password)
             .then((valid)=>{
                 if (!valid) {
-                    return res.status(401).json(
+                    return res.status(401).json( 
                         {message:"Bad credentials"}
                     ).end();
                 }
                 let accessToken = jwt.sign(
                     {user_id: result[0].user_id},
                     "MY_TOKEN_SECRET",
-                    {expiresIn:"10m"}
+                    {expiresIn:"1h"}
                 );
+                let userProfile = {
+                    userId: result[0].user_id,
+                    nom: result[0].nom,
+                    prenom: result[0].prenom,
+                    photo: result[0].photo_profil,
+                    email: result[0].email,
+                    pseudo: result[0].pseudo
+                }
                 console.log(accessToken);
-                res.status(201).json({accessToken, user_id:result[0].user_id})
+                res.status(201).json({accessToken, userProfile})
             }).catch((error)=>{
                 console.log(error);
             });

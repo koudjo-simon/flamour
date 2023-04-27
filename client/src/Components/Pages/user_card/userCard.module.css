@@ -17,21 +17,31 @@ body {
   /* User Card */
   
   .user_card {
-    display: flex;
     align-items: center;
-    padding: 20px;
+    padding: 5px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     margin-bottom: 20px;
+    width: 60vh;
+    height: 55vh;
+  }
+
+  .user_name{
+    color: pink;
+  }
+
+  .photo_view{
+    height: 70%;
+    width: 100%;
   }
   
   .user_card img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
+    width: 70%;
+    height: 100%;
+    /* object-fit: cover;
     border-radius: 50%;
-    margin-right: 20px;
+    margin-right: 20px; */
   }
   
   .user_card h2 {
@@ -57,6 +67,10 @@ body {
     margin-right: 5px;
   }
   
+  .user_info{
+    font-weight: bold;
+  }
+
   /* Message Button */
   
   .message-button {
@@ -85,6 +99,18 @@ body {
     margin-right: 5px;
   }
   
+  .inbox_btn{
+    font-size: 2vh;
+    font-weight: bold;
+    height: 5vh;
+    width: 12vh;
+    border-radius: 3vh;
+    margin-top: 1vh;
+    background-color: white;
+    color: pink;
+    border: 1px solid pink;
+  }
+
   /* Media Queries */
   
   @media only screen and (max-width: 768px) {

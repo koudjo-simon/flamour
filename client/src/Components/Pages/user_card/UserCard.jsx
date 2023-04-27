@@ -4,7 +4,9 @@ const UserCard = ({user}) => {
 
     return (
       <div className={styles.user_card}>
-        <img src={user.photo_profil} alt="user profile" />
+        <div className={styles.photo_view}>
+          <img src={user.photo_profil} alt="user profile" />
+        </div>
         <div className={styles.user_info}>
           <div className={styles.user_name}>
             {user.nom} {user.prenom}
@@ -15,7 +17,7 @@ const UserCard = ({user}) => {
           <div className={styles.user_age}>{user.age} ans</div>
         </div>
         <div className={styles.message_icon}>
-          <button>Inbox</button>
+          <button className={styles.inbox_btn}>Message</button>
         </div>
       </div>
     );

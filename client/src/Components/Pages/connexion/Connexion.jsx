@@ -5,7 +5,7 @@ import styles from './connexion.module.css'
 import { useNavigate } from 'react-router-dom';
 import Header2 from '../../Layouts/header/Header2';
 
-const Connexion = ({setUserId}) => {
+const Connexion = ({setUserInfo}) => {
 
     const [pseudo, setPseudo] = useState("");
     const [mdp, setMdp] = useState("");
@@ -22,7 +22,7 @@ const Connexion = ({setUserId}) => {
             .then((response) => {
                     console.log(response.data);
                     localStorage.setItem("token", response.data.accessToken);
-                    setUserId(response.data.user_id)
+                    setUserInfo(response.data.userProfile);
                     navigate("/chat/main");
                 })
                 .catch((error) => {

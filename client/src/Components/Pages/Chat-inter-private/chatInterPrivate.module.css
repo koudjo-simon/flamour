@@ -6,8 +6,12 @@
 .chatHeader{
     width: 100%;
     height: 10%;
-    background-color: red;
+    background-color: black;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
 }
 
 .chatBody{
@@ -16,11 +20,10 @@
     width: 100%;
     overflow-y: scroll;
     /* display: flex; */
-    background-color: yellow;
 }
 
 .chatInputMessage{
-    background-color: yellow;
+    /* background-color: yellow; */
     height: 15%;
     width: 100%;
 }
@@ -29,29 +32,40 @@ form{
     height: 100%;
 }
 
-textarea{
+.message_input{
+    height: 98%;
+    width: 98%;
+}
+
+/* textarea{
     width: 100%;
     height: 100%;
-}
+} */
 
 .messageBox{
     margin-bottom: 1vh;
-    position: relative;
-    width: 40%;
+    /* position: relative; */
+    width: 100%;
     display: flex;
 	flex-direction: column;
 }
 
 .buble{
     border: 1px solid black;
-    width: 30%;
+    width: 20%;
     padding: 2vh;
     align-self: flex-end;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    margin-right: 5vh;
 }
 
 .first_user_message{
-    color: white;
+    color: yellow;
+    background-color: red;
     margin-right: 1vh;
+    display: flex;
+    justify-content: flex-end;
     width: 100%;
     float: right;
 }

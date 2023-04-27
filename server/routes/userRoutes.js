@@ -29,6 +29,6 @@ const upload = multer({ storage,
 
 router.post("/signup", multer,  userCtrl.signup);
 router.post("/login", userCtrl.login);
-router.post("/getallusers", verifyToken, userCtrl.getAllUsers);
+router.post("/getallusers", verifyToken, userCtrl.getAllUsers); 
 
 module.exports = router;

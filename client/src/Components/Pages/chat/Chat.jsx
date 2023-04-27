@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import axiosPrivate from '../../../api/axiosPrivate';
 import UserCard from '../user_card/UserCard';
 
-function Chat({selectedUser, setSelectedUser, conversation, setConversation}) {
+function Chat({userInfo, selectedUser, setSelectedUser, chatConversation, setChatConversation}) {
 
   const [users, setUsers] = useState([]);
 
@@ -22,7 +22,7 @@ function Chat({selectedUser, setSelectedUser, conversation, setConversation}) {
   }, []); */
 
   useEffect(() => {
-    axiosPrivate.post("/user/getallusers", {userId:1})
+    axiosPrivate.post("/user/getallusers", {userId:userInfo.userId})
       .then((response) => {
         console.log("All users ", response.data.users)
         setUsers(response.data.users);
@@ -48,6 +48,7 @@ let userDiv = users.length > 0 ? users.map((user) => {
       <div onClick={() => {
         setSelectedUser(user)
         console.log("Init User: ", user)
+        setChatConversation(null);
         navigate("/chat/main/init");
       }} key={user.email} className={styles.users_container}>
           <div className={ styles.user_card_container }>

@@ -12,8 +12,9 @@ main{
 main .profile img{
     margin: 15px auto;
     display: block;
-    width: 120px;
-    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+    border-radius: 10%;
     
 }
 .information{     
@@ -36,7 +37,7 @@ main .profile img{
     display: flex;
     font-size: large; 
     padding: 1vh;    
-    
+    border-bottom: 2px solid white;
 }
 
 .message_view{
@@ -45,7 +46,10 @@ main .profile img{
     height: 100%;
     width: 50%;
     cursor: pointer;
+    font-weight: bold;
+    border-right: 1px solid white;
 }
+
 .info_view{
     text-align: center;
     color: blue;
@@ -65,11 +69,11 @@ body{
 }
 .container_1{  
     border-right: 1px solid rgb(116, 116, 116);
-    background-color: rgb(172, 168, 169);
+    background-color: black;
     width: 20%;
 }
 .profile{
-    border-bottom: 1px solid rgb(116, 116, 116);
+    border-bottom: 2px solid rgb(116, 116, 116);
 }
 .prefer{
     border-bottom: 1px solid rgb(116, 116, 116);
@@ -111,9 +115,29 @@ body{
 
 .userConversation{
     cursor: pointer;
-    padding: 2vh 0;
+    padding: 1vh 0;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid white;
+    color: white;
+    /* margin-bottom: 1vh;
+    margin-top: 1vh; */
 }
 
 .container{
     width: 100%;
+}
+
+.userPseudo{
+    border-bottom: 1px solid white;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+.conversation_heading{
+    text-align: center;
+    border-bottom: 1px dashed white;
+    color: white;
 }
