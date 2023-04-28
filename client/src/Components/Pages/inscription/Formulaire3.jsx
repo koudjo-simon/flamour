@@ -19,16 +19,16 @@ const Formulaire3 = ({handleFileChange, setShowForm2, setShowForm3, sexe, setSex
             <div className={classe.form}>
                 <div className={classe.noitr}> 
                     <div className={classe.form_container}>
-                        <form>
+                        <form className={classe.inscription_form}>
                             <label>
                                 Sexe :
                             </label>
-                            <select name="sexe" id="sexe" onChange={(e)=>{setSexe(e.target.value)}}>
+                            <select className={classe.sexe_select} name="sexe" id="sexe" onChange={(e)=>{setSexe(e.target.value)}}>
                                 <option value="F">Feminin</option>
                                 <option value="M">Masculin</option>
                             </select><br />
                             <label>Profil : </label>
-                            <input type="file" onClick={handleFileChange} />
+                            <input className={classe.input_file} type="file" onClick={handleFileChange} />
                             <div className={classe.btn_div}>
                                 <button className={classe.btn_previous} onClick={()=>{handlePrevious()}}>Précedent</button>
                                 <button className={classe.btn_inscription} onClick={(event)=> {handleSubmit(event)}}>Soumettre</button>

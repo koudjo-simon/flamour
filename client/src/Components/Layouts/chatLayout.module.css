@@ -5,17 +5,22 @@
 main{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     height: 100vh;
     width: 100%;
-    
 }
 main .profile img{
-    margin: 15px auto;
+    /* margin: 15px auto;
     display: block;
     width: 100%;
     height: 100%;
+    border-radius: 10%; */
+    width: 100%;
+    height: 22vh;
+    /* object-fit: cover; */
     border-radius: 10%;
-    
+    margin: 2vh;
+    /* margin-right: 20px; */
 }
 .information{     
     justify-content: space-between;
@@ -33,11 +38,21 @@ main .profile img{
 .information label{
     display: block;  
 }
+
+.profile_div{
+    height: 30%;
+}
+
 .message{
     display: flex;
     font-size: large; 
-    padding: 1vh;    
+    padding: 1vh;
     border-bottom: 2px solid white;
+}
+
+.message_info{
+    height: 70%;
+    /* overflow-y: scroll; */
 }
 
 .message_view{
@@ -65,15 +80,22 @@ main .profile img{
 
 body{
     margin: auto;
-     background-color: rgba(2, 2, 255, 0.233);
+     /* background-color: rgba(2, 2, 255, 0.233); */
 }
 .container_1{  
     border-right: 1px solid rgb(116, 116, 116);
-    background-color: black;
-    width: 20%;
+    background-color: #725a7a;
+    width: 16%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 .profile{
     border-bottom: 2px solid rgb(116, 116, 116);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 .prefer{
     border-bottom: 1px solid rgb(116, 116, 116);
@@ -125,7 +147,7 @@ body{
 }
 
 .container{
-    width: 100%;
+    width: 83%;
 }
 
 .userPseudo{

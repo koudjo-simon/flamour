@@ -21,9 +21,13 @@ const App = () => {
   const [userInfo, setUserInfo] = useState("");
   const [selectedUser, setSelectedUser] = useState({});
   const [selectedConversationUser, setSelectedConversationUser] = useState("");
+  const [conversationUserClick, setConversationUserClick] = useState({})
 
   const [showDiscussions, setShowDiscussion] = useState(true);
   const [showUserInfo, setShowUserInfo] = useState(false);
+  const [messages, setMessages] = useState([]);
+
+  const [inscriptionPseudo, setInscriptionPseudo] = useState("");
 
   const socket = io.connect("http://localhost:5000");
 
@@ -33,14 +37,14 @@ const App = () => {
         <Routes>
           <Route path="/" element={<LayoutGeneral />}>
             <Route index element={<Acceuil />} />
-            <Route path="inscription" element={<Inscription />} />
+            <Route path="inscription" element={<Inscription setInscriptionPseudo={setInscriptionPseudo} />} />
           </Route>
-          <Route path="/login" element={<Connexion setUserInfo={setUserInfo} />} />        
+          <Route path="/login" element={<Connexion inscriptionPseudo={inscriptionPseudo} setUserInfo={setUserInfo} />} />        
           <Route path="/chat" element={<Protection />} >
-            <Route path='main' element={<ChatLayout userInfo={userInfo} socket={socket} showDiscussions={showDiscussions} showUserInfo={showUserInfo} layoutConversation={layoutConversation} setLayoutConversation={setLayoutConversation} setShowDiscussion={setShowDiscussion} setShowUserInfo={setShowUserInfo} setChatConversation={setChatConversation} setSelectedConversationUser={setSelectedConversationUser} />}>
+            <Route path='main' element={<ChatLayout setMessages={setMessages} userInfo={userInfo} socket={socket} showDiscussions={showDiscussions} showUserInfo={showUserInfo} layoutConversation={layoutConversation} setLayoutConversation={setLayoutConversation} setShowDiscussion={setShowDiscussion} setShowUserInfo={setShowUserInfo} setChatConversation={setChatConversation} setSelectedConversationUser={setSelectedConversationUser} setConversationUserClick={setConversationUserClick} />}>
               <Route index element={<Chat userInfo={userInfo} chatConversation={chatConversation} setSelectedUser={setSelectedUser} setChatConversation={setChatConversation} />} />
-              <Route path='private' element={<PrivateChat socket={socket} userInfo={userInfo} chatConversation={chatConversation} setChatConversation={setChatConversation} selectedConversationUser={selectedConversationUser} />} />
-              <Route path='init' element={<ChatInterPrivate socket={socket} userInfo={userInfo} selectedUser={selectedUser} chatConversation={chatConversation} setChatConversation={setChatConversation} />} />
+              <Route path='private' element={<PrivateChat messages={messages} setMessages={setMessages} conversationUserClick={conversationUserClick} socket={socket} userInfo={userInfo} chatConversation={chatConversation} setChatConversation={setChatConversation} selectedConversationUser={selectedConversationUser} />} />
+              <Route path='init' element={<ChatInterPrivate socket={socket} userInfo={userInfo} selectedUser={selectedUser} chatConversation={chatConversation} setChatConversation={setChatConversation} setLayoutConversation={setLayoutConversation} />} />
             </Route>
           </Route>
           <Route path='test' element={<UserCard/>} />

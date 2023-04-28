@@ -20,7 +20,7 @@ const Formulaire2 = ({setShowForm1, setShowForm2, setShowForm3, profession, pays
             <div className={classe.form}>
                 <div className={classe.noitr}> 
                     <div className={classe.form_container}>
-                        <form>
+                        <form className={classe.inscription_form}>
                         <table>
                             <tbody>
                                 <tr className={classe.form_tr_mb}>

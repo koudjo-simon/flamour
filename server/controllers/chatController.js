@@ -1,7 +1,7 @@
 const dataBase = require("../config/mysql")
 
 exports.getUserChat = (req, res) => {
-    let selectUserChatRequest = "SELECT DISTINCT c.id_conv, u.nom , u.prenom FROM conversation c INNER JOIN message m ON m.id_conversation = c.id_conv INNER JOIN utilisateur u on u.user_id = IF(c.user_id_1 = 12, c.user_id_2, c.user_id_1) WHERE c.user_id_1 = 12 OR c.user_id_2 = 12 GROUP BY(c.id_conv);";
+    let selectUserChatRequest = "SELECT DISTINCT c.id_conv, u.nom , u.prenom FROM conversation c INNER JOIN message m ON m.id_conversation = c.id_conv INNER JOIN utilisateur u on u.user_id = IF(c.user_id_1 = ?, c.user_id_2, c.user_id_1) WHERE c.user_id_1 = ? OR c.user_id_2 = ? GROUP BY(c.id_conv);";
     dataBase.query(selectUserChatRequest, [req.body.user_id, req.body.user_id, req.body.user_id], (error, result)=>{
         if (error) throw error;
         // console.log("Get user chat : ", result);
@@ -10,7 +10,7 @@ exports.getUserChat = (req, res) => {
 }
 
 exports.getChatMessage = (req, res) => {
-    let selectChatMessageRequest = "SELECT * FROM message WHERE id_conversation = ?;";
+    let selectChatMessageRequest = "SELECT * FROM message m JOIN utilisateur u ON u.user_id = m.message_sender WHERE id_conversation = ? ORDER BY(id_mes);";
     
     dataBase.query(selectChatMessageRequest, [req.body.convId], (error, result)=>{
         if (error) throw error;

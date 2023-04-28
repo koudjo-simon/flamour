@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import Formulaire1 from "./Formulaire1";
 import Formulaire2 from "./Formulaire2";
 import Formulaire3 from "./Formulaire3";
 
-const Inscription = () => {
+const Inscription = ({ setInscriptionPseudo }) => {
+
+    const navigate = useNavigate();
 
     const [nom, setNom] = useState("Gérald");
     const [prenom, setPrenom] = useState("AMENOUGLO");
@@ -57,6 +60,8 @@ const Inscription = () => {
         axios.post("http://localhost:5000/user/signup", formData)
             .then((response) => {
                     console.log(response);
+                    setInscriptionPseudo(pseudo);
+                    navigate("/login");
                 })
                 .catch((error) => {
                     console.log(error);

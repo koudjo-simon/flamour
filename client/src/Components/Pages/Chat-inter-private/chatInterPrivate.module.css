@@ -4,9 +4,10 @@
 }
 
 .chatHeader{
-    width: 100%;
+    width: 98%;
     height: 10%;
-    background-color: black;
+    background-color: #ac0000;
+    border: 1vh solid white;
     text-align: center;
     display: flex;
     align-items: center;
@@ -15,8 +16,13 @@
 }
 
 .chatBody{
-    background-color: white;
-    height: 75%;
+    background-color: #d2d2d2;
+    /* background: url(../../../images/dsc-bgc.jpg); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    height: 79%;
     width: 100%;
     overflow-y: scroll;
     /* display: flex; */
@@ -24,7 +30,7 @@
 
 .chatInputMessage{
     /* background-color: yellow; */
-    height: 15%;
+    height: 9%;
     width: 100%;
 }
 
@@ -34,7 +40,14 @@ form{
 
 .message_input{
     height: 98%;
-    width: 98%;
+    width: 99%;
+    border: 0.5px dashed black;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.message_input:focus{
+    border: 0.5px solid white;
 }
 
 /* textarea{
@@ -47,10 +60,11 @@ form{
     /* position: relative; */
     width: 100%;
     display: flex;
-	flex-direction: column;
+    justify-content: space-between;
+	/* flex-direction: column; */
 }
 
-.buble{
+.buble_1{
     border: 1px solid black;
     width: 20%;
     padding: 2vh;
@@ -58,21 +72,56 @@ form{
     margin-top: 1vh;
     margin-bottom: 1vh;
     margin-right: 5vh;
+    background-color: blue;
+    border-radius: 5vh;
 }
 
+.buble_2{
+    border: 1px solid black;
+    width: 20%;
+    padding: 2vh;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    margin-left: 5vh;
+    background-color: green;
+    border-radius: 5vh;
+}
+
+
+
 .first_user_message{
-    color: yellow;
-    background-color: red;
+    color: white;
+    /* background-color: red; */
     margin-right: 1vh;
     display: flex;
+    font-weight: bold;
     justify-content: flex-end;
     width: 100%;
     float: right;
+    font-size: 1.3rem;
 }
 
 .second_user_message{
-    color: blue;
+    color: white;
     margin-left: 1vh;
     width: 100%;
     float: left;
+    font-weight: bold;
+    font-size: 1.3rem;
 }
+
+.messageInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+  }
+  
+  .author {
+    font-size: 0.8em;
+    color: #999;
+  }
+  
+  .time {
+    font-size: 0.8em;
+    color: #999;
+  }

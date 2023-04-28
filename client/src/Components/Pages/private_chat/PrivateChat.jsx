@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { DateTime } from 'luxon';
 import axiosPrivate from '../../../api/axiosPrivate';
 import styles from './privateChat.module.css';
 
-function PrivateChat({socket, userInfo, chatConversation, setChatConversation}) {
+function PrivateChat({socket, messages, setMessages, conversationUserClick, userInfo, chatConversation, setChatConversation}) {
 
-    const [messages, setMessages] = useState([]);
     const [currentMessage, setCurrentMessage] = useState("");
-
 
     /* useEffect(()=>{
         
@@ -81,22 +80,34 @@ function PrivateChat({socket, userInfo, chatConversation, setChatConversation}) 
         console.log("User Id ", userInfo.userId);
 
         await socket.emit("send_message", messageData);
-
+        setCurrentMessage("");
     }
+
+    function formatDate(dateString) {
+        const date = DateTime.fromISO(dateString);
+        const options = { hour: 'numeric', minute: 'numeric' };
+        return date.toLocaleString(options);
+      }
 
     let messageDiv = messages.length > 0 ? messages.map((message) => {
         return (
             <div key={message.id_mes} className={styles.messageBox}>
                 <div className={ Number(message.message_sender) === Number(userInfo.userId) ? styles.first_user_message : styles.second_user_message }>
-                        {/* <div className={styles.buble}> */}
-                            <p>
-                                Fake text
-                            </p>
-                            <p>
-                                { message?.text }
-                            </p>
-                        {/* </div> */}
-                    {/* <span className={styles.author}></span> */}
+                    <div className={Number(message.message_sender) === Number(userInfo.userId) ? styles.buble_1 : styles.buble_2}>
+                            <div >
+                                <p>
+                                    Fake text
+                                </p>
+                                <p>
+                                    { message?.text }
+                                </p>
+                            </div>
+                                <hr />
+                            <div className={styles.messageInfo}>
+                                <span className={styles.author}>{ message?.pseudo }</span>
+                                <span className={styles.time}>{ formatDate(message?.message_date) }</span>
+                            </div>
+                    </div>
                 </div>
             </div>
         )
@@ -105,17 +116,17 @@ function PrivateChat({socket, userInfo, chatConversation, setChatConversation}) 
   return (
     <div className={styles.privateChatContainer}>
         <div className={styles.chatHeader}>
-            <h1>Header div</h1>
+            <h1>{` ${conversationUserClick.nom} ${conversationUserClick.prenom} `}</h1>
         </div>
         <div className={styles.chatBody}>
             { messageDiv }
         </div>
         <div className={styles.chatInputMessage}>
             <form onSubmit={(e)=>{handleSendMessage(e)}}>
-                <textarea onChange={(e) => {setCurrentMessage(e.target.value)}}>
-                    
-                </textarea>
-                <button>Envoyer</button>
+                <input value={currentMessage} className={styles.message_input} placeholder='Entrer votre message ici ...' type="text" onChange={(e) => {setCurrentMessage(e.target.value)}} />
+                {/* <button type='submit'>Envoyer</button> */}
+            
+            {/* <button>Envoyer</button> */}
             </form>
         </div>
     </div>

@@ -15,19 +15,50 @@
     width: 100vw;
 } */
 
-.background{
-    /* background-color: rgba(0, 0, 0, 0.712); */
+/* .background{
+    
     height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: url(../../../images/bg-image.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
+} */
+
+.general{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4vh;
+}
+
+.heading_welcome{
+    color: white;
+}
+
+.background{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.connexion_container{
+    background: url(../../../images/bg-image.jpg);
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+label{
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .noitr{
@@ -39,11 +70,29 @@
     border-radius: 15px;
     width: 40vw;
     height: 60vh;
+    margin-top: 5vh;
 }
 
-#email{
+.input_pseudo{
+    width: 50vh;
+    height: 5vh;
+    border-radius: 2vh;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.input_pwd{
+    width: 50vh;
+    height: 5vh;
+    border-radius: 2vh;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+
+#pseudo{
     height: 6vh;
-    width: 25vw;
+    width: 30vh;
     border-radius: 40px;
     border-style: solid;
     border-color: white;
@@ -82,15 +131,32 @@
 
 .bouton{
     padding: 1vw 4vh;
-    background-color:pink;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50px;
 }
 
+button.btn_connexion{
+    height: 4vh;
+    width: 16vh;
+    border-radius: 3vh;
+    background-color: #F10479;
+    border: 1px solid pink;
+    color: pink;
+    margin-left: 17vh;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+button.btn_connexion:hover {
+    animation: a 0.5s 1 linear;
+    border-color:white;
+    background-color: black;
+    color: violet;
+  }
+
 .bouton:hover{
-    background-color: rgb(255, 92, 119);
     color: white;
 }
 

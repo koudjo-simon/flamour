@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { DateTime } from 'luxon';
 import axiosPrivate from '../../../api/axiosPrivate';
 import styles from './chatInterPrivate.module.css';
 
-const ChatInterPrivate = ({socket, userInfo, chatConversation, selectedUser, setChatConversation}) => {
+const ChatInterPrivate = ({socket, userInfo, chatConversation, selectedUser, setChatConversation, setLayoutConversation}) => {
 
     const [currentMessage, setCurrentMessage] = useState("");
     const [messages, setMessages] = useState([]);
@@ -18,6 +19,15 @@ const ChatInterPrivate = ({socket, userInfo, chatConversation, selectedUser, set
 
     useEffect(() => {
         socket.on("send_id", (data) => {
+            axiosPrivate.get("http://localhost:5000/chat/getall")
+            .then((response) => {
+                setLayoutConversation(response.data.conversation);
+                console.log("Responses conv list", response);
+                console.log("Conversations list", response.data.conversation);
+                // localStorage.setItem("conv", conversation.conv_id);
+            }).catch((error) => {
+                console.log(error)
+            })
             setNewConvId(data)
             console.log("Notre ID", data);
             setChatConversation(data)
@@ -101,6 +111,7 @@ const ChatInterPrivate = ({socket, userInfo, chatConversation, selectedUser, set
         setMessages(test)
         console.log("User Id ", userId); */
         await socket.emit("send_message", messageData)
+        setCurrentMessage("")
     }
     
     /* const handleSubmit = async (e) => {
@@ -138,17 +149,27 @@ const ChatInterPrivate = ({socket, userInfo, chatConversation, selectedUser, set
         // await socket.emit("send_message", messageData)
     }*/
 
+    function formatDate(dateString) {
+        const date = DateTime.fromISO(dateString);
+        const options = { hour: 'numeric', minute: 'numeric' };
+        return date.toLocaleString(options);
+      }
+
     let messageDiv = messages.length > 0 ? messages.map((message) => {
         return (
             <div key={message.id_mes} className={styles.messageBox}>
                 <div className={ Number(message.message_sender) === Number(userInfo.userId) ? styles.first_user_message : styles.second_user_message }>
-                        <div className={styles.buble}>
-                            <p>
-                                Fake text
-                            </p>
-                            <p>
-                                { message?.text }
-                            </p>
+                        <div className={Number(message.message_sender) === Number(userInfo.userId) ? styles.buble_1 : styles.buble_2}>
+                            <div >
+                                <p>
+                                    { message?.text }
+                                </p>
+                            </div>
+                            <hr />
+                            <div className={styles.messageInfo}>
+                                <span className={styles.author}>{ message?.pseudo }</span>
+                                <span className={styles.time}>{ formatDate(message?.message_date) }</span>
+                            </div>
                         </div>
                     {/* <span className={styles.author}></span> */}
                 </div>
@@ -161,19 +182,18 @@ const ChatInterPrivate = ({socket, userInfo, chatConversation, selectedUser, set
         <div className={styles.chatHeader}>
             <h1>{`${selectedUser.nom} ${selectedUser.prenom}`}</h1>
         </div>
-        <div className={styles.chatBody}>
+        <div id="chatBodyDiv" className={styles.chatBody}>
             { messageDiv }
         </div>
         {/* <img src={img} alt='shool grade icon' /> */}
         <div className={styles.chatInputMessage}>
             <form onSubmit={(e)=>{handleSubmit(e)}}>
-                <input className={styles.message_input} type="text" onChange={(e) => {setCurrentMessage(e.target.value)}} />
+                <input className={styles.message_input} type="text" value={currentMessage} placeholder='Entrer votre message ici ...' onChange={(e) => {setCurrentMessage(e.target.value)}} />
                 {/* <button type='submit'>Envoyer</button> */}
             </form>
         </div>
     </div>
   )
 }
-
 
 export default ChatInterPrivate;

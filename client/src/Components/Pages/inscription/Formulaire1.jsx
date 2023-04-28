@@ -15,7 +15,7 @@ const Formulaire1 = ({setShowForm1, setShowForm2, nom, prenom, pseudo, email, md
             <div className={classe.form}>
                 <div className={classe.noitr}>
                     <div className={classe.form_container}>
-                        <form onSubmit={(e)=>{handleSubmit(e)}}>
+                        <form className={classe.inscription_form} onSubmit={(e)=>{handleSubmit(e)}}>
                             <table>
                                 <tbody>
                                 <tr className={classe.form_tr_mb}>

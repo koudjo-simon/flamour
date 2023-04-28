@@ -3,7 +3,7 @@ import styles from './chatLayout.module.css'
 import { Outlet, useNavigate } from 'react-router-dom';
 import axiosPrivate from '../../api/axiosPrivate';
 
-const ChatLayout = ({userInfo, layoutConversation, showDiscussions, showUserInfo, setLayoutConversation, setShowDiscussion, setShowUserInfo, setChatConversation, setSelectedConversationUser}) => {
+const ChatLayout = ({userInfo, messages, setMessages, chatConversation, layoutConversation, showDiscussions, showUserInfo, setConversationUserClick, setLayoutConversation, setShowDiscussion, setShowUserInfo, setChatConversation, setSelectedConversationUser}) => {
     
     const navigate = useNavigate();
 
@@ -22,10 +22,22 @@ const ChatLayout = ({userInfo, layoutConversation, showDiscussions, showUserInfo
 
     let convDiv = layoutConversation.length > 0 && showDiscussions ? layoutConversation.map((conversation) => {
         return (
-            <div onClick={() => {
+            <div /* className={} */ onClick={() => {
                 localStorage.setItem("conv", conversation.id_conv);
                 setChatConversation(conversation);
-                setSelectedConversationUser()
+                const user = {
+                    nom : conversation.nom,
+                    prenom : conversation.prenom
+                }
+                axiosPrivate.post("http://localhost:5000/chat/getallmessages", {convId:conversation.id_conv})
+                    .then((response) => {
+                        console.log("Message object :", response.data.messages);
+                        setMessages(response.data.messages);
+                        console.log("Le message : ", messages);
+                    }).catch((error) => {
+                        console.log(error);
+                    })
+                setConversationUserClick(user);
                 navigate("/chat/main/private");
             }} key={conversation.id_conv} className={styles.userConversation}>
                 <span>
@@ -39,12 +51,15 @@ const ChatLayout = ({userInfo, layoutConversation, showDiscussions, showUserInfo
     <div>
         <main>
         <div className={styles.container_1}>
-            <div className={styles.profile}>
-                <img src={userInfo.photo} alt="" />
+            <div className={styles.profile_div}>
+                <div className={styles.profile}>
+                    <img src={userInfo.photo} alt="" />
+                </div>
+                <div className={styles.userPseudo}>
+                    { userInfo.pseudo }
+                </div>
             </div>
-            <div className={styles.userPseudo}>
-                { userInfo.pseudo }
-            </div>
+            <div className={styles.message_info}>
             <div className={styles.message}>
                 <div className={styles.message_view} onClick={
                     () => {
@@ -80,7 +95,7 @@ const ChatLayout = ({userInfo, layoutConversation, showDiscussions, showUserInfo
             <div className={styles.edit}>
                  {/* <a href="" className={styles.link_edit}>Modifier Information</a> */}
                  Modifier Information
-            </div>
+            </div> 
             </div>
              }
             {showDiscussions &&  <div className={styles.conversations}>
@@ -90,9 +105,6 @@ const ChatLayout = ({userInfo, layoutConversation, showDiscussions, showUserInfo
                 <div>Kokou</div> */}
                 {convDiv}
             </div>}
-            <div className={styles.deconnecte}>
-                {/* <a href="" className={styles.link_deconnecte}>Déconnexion</a> */}
-                Déconnexion
             </div>
         </div>
         <div className={styles.container}>

@@ -17,6 +17,12 @@ button:hover {
   color: violet;
 }
 
+.inscription_form input{
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
 /* input[type="text"],
   input[type="email"],
   input[type="password"] {
